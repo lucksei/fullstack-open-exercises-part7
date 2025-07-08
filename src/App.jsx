@@ -3,12 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Menu from './components/Menu';
 import AnecdoteList from './components/AnecdoteList';
-
-// Routes
 import About from './components/About';
 import Footer from './components/Footer';
 import CreateNew from './components/CreateNew';
 import Anecdote from './components/Anecdote';
+import Notification from './components/Notification';
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -33,6 +32,12 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
+
+    // Display notification
+    setNotification(`a new anecdote ${anecdote.content} created!`);
+    setTimeout(() => {
+      setNotification('');
+    }, 5000);
   };
 
   const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
@@ -53,6 +58,7 @@ const App = () => {
       <h1>Software anecdotes</h1>
       <BrowserRouter>
         <Menu />
+        <Notification message={notification} />
         <Routes>
           <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path="about" element={<About />} />

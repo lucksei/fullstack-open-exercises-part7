@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Anecdote = ({ anecdotes }) => {
   const { id } = useParams();
@@ -13,6 +14,10 @@ const Anecdote = ({ anecdotes }) => {
       <div>author: {anecdote.author}</div>
     </div>
   );
+};
+
+Anecdote.propTypes = {
+  anecdotes: PropTypes.array.isRequired,
 };
 
 export default Anecdote;
