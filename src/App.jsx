@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Menu from './components/Menu.jsx';
-import AnecdoteList from './components/AnecdoteList.jsx';
+import Menu from './components/Menu';
+import AnecdoteList from './components/AnecdoteList';
 
 // Routes
-import About from './components/About.jsx';
-import Footer from './components/Footer.jsx';
-import CreateNew from './components/CreateNew.jsx';
+import About from './components/About';
+import Footer from './components/Footer';
+import CreateNew from './components/CreateNew';
+import Anecdote from './components/Anecdote';
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -56,6 +57,10 @@ const App = () => {
           <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path="about" element={<About />} />
           <Route path="create" element={<CreateNew addNew={addNew} />} />
+          <Route
+            path="anecdotes/:id"
+            element={<Anecdote anecdotes={anecdotes} />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>
