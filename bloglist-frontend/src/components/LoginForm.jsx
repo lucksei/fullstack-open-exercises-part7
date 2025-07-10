@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setNotification } from '../reducers/notificationReducer';
 import loginService from '../services/login';
 
-const LoginForm = ({ handleSetUser, handleAlert }) => {
+const LoginForm = ({ handleSetUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -17,7 +21,7 @@ const LoginForm = ({ handleSetUser, handleAlert }) => {
       setUsername('');
       setPassword('');
     } catch (exception) {
-      handleAlert('error', 'Wrong credentials');
+      dispatch(setNotification('error', 'Wrong username or password', 3));
     }
   };
 

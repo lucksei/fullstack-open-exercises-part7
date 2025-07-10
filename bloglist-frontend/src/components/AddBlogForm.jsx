@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import blogService from '../services/blogs';
+import { useDispatch } from 'react-redux';
 
-const AddBlogForum = ({ handleAddBlog, handleAlert }) => {
+import { setNotification } from '../reducers/notificationReducer';
+
+const AddBlogForum = ({ handleAddBlog }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,9 +20,9 @@ const AddBlogForum = ({ handleAddBlog, handleAlert }) => {
         url: url,
       };
       await handleAddBlog(newBlog);
-      handleAlert('success', `A new blog! '${newBlog.title}'`);
+      dispatch(setNotification('success', `A new blog! "${newBlog.title}"`, 3));
     } catch (exception) {
-      handleAlert('error', 'Could not create new blog entry');
+      dispatch(setNotification('error', 'Could not create new blog entry', 3));
     }
   };
 

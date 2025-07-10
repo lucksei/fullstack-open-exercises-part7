@@ -10,7 +10,7 @@ const sortBlogsByLikes = (blogs) => {
   return blogs.sort((a, b) => b.likes - a.likes);
 };
 
-const BlogList = ({ user, setUser, handleAlert }) => {
+const BlogList = ({ user, setUser }) => {
   const [blogs, setBlogs] = useState([]);
 
   const toggleRef = useRef();
@@ -40,8 +40,8 @@ const BlogList = ({ user, setUser, handleAlert }) => {
     await blogService.update(editedBlog);
     setBlogs(
       sortBlogsByLikes(
-        blogs.map((blog) => (blog.id === editedBlog.id ? editedBlog : blog))
-      )
+        blogs.map((blog) => (blog.id === editedBlog.id ? editedBlog : blog)),
+      ),
     );
   };
 
@@ -61,7 +61,7 @@ const BlogList = ({ user, setUser, handleAlert }) => {
       </div>
       <br />
       <Toggleable buttonLabel="new blog" ref={toggleRef}>
-        <AddBlogForm handleAddBlog={handleAddBlog} handleAlert={handleAlert} />
+        <AddBlogForm handleAddBlog={handleAddBlog} />
       </Toggleable>
       <div>
         {blogs.map((blog) => (
@@ -83,7 +83,6 @@ const BlogList = ({ user, setUser, handleAlert }) => {
 BlogList.propTypes = {
   user: PropTypes.object.isRequired,
   setUser: PropTypes.func.isRequired,
-  handleAlert: PropTypes.func.isRequired,
 };
 
 export default BlogList;

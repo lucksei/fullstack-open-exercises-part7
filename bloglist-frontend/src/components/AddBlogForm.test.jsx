@@ -1,7 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import AddBlogForm from './AddBlogForm';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
+
+import { Provider } from 'react-redux';
+import store from '../utils/storeConfig';
+
+import AddBlogForm from './AddBlogForm';
 
 describe('<AddBlogForm />', () => {
   test('create new blog with the right details', async () => {
@@ -9,10 +13,12 @@ describe('<AddBlogForm />', () => {
     const mockAlertHandler = vi.fn();
 
     const container = render(
-      <AddBlogForm
-        handleAddBlog={mockAddBlogHandler}
-        handleAlert={mockAlertHandler}
-      />
+      <Provider store={store}>
+        <AddBlogForm
+          handleAddBlog={mockAddBlogHandler}
+          handleAlert={mockAlertHandler}
+        />
+      </Provider>,
     ).container;
 
     const blogFormElement = container.querySelector('.blog-form');
