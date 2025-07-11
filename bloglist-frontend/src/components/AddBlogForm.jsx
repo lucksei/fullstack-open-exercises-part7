@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setNotification } from '../reducers/notificationReducer';
+import { createBlog } from '../reducers/blogsReducer';
 
-const AddBlogForum = ({ handleAddBlog }) => {
+const AddBlogForum = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
@@ -19,7 +20,7 @@ const AddBlogForum = ({ handleAddBlog }) => {
         author: author,
         url: url,
       };
-      await handleAddBlog(newBlog);
+      dispatch(createBlog(newBlog));
       dispatch(setNotification('success', `A new blog! "${newBlog.title}"`, 3));
     } catch (exception) {
       dispatch(setNotification('error', 'Could not create new blog entry', 3));

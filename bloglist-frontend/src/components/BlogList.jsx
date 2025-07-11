@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import blogService from '../services/blogs';
 
@@ -6,23 +7,10 @@ import Blog from './Blog';
 import AddBlogForm from './AddBlogForm';
 import Toggleable from './Toggleable';
 
-const sortBlogsByLikes = (blogs) => {
-  return blogs.sort((a, b) => b.likes - a.likes);
-};
-
 const BlogList = ({ user, setUser }) => {
-  const [blogs, setBlogs] = useState([]);
-
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.blogs);
   const toggleRef = useRef();
-
-  useEffect(() => {
-    loadBlogs();
-  }, []);
-
-  const loadBlogs = async () => {
-    const blogs = await blogService.getAll();
-    setBlogs(sortBlogsByLikes(blogs));
-  };
 
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -30,11 +18,11 @@ const BlogList = ({ user, setUser }) => {
     setUser(null);
   };
 
-  const handleAddBlog = async (newBlog) => {
-    const newBlogResponse = await blogService.create(newBlog);
-    setBlogs(sortBlogsByLikes(blogs.concat(newBlogResponse)));
-    toggleRef.current.toggleVisibility();
-  };
+  // const handleAddBlog = async (newBlog) => {
+  //   const newBlogResponse = await blogService.create(newBlog);
+  //   setBlogs(sortBlogsByLikes(blogs.concat(newBlogResponse)));
+  //   toggleRef.current.toggleVisibility();
+  // };
 
   const handleEditBlog = async (editedBlog) => {
     await blogService.update(editedBlog);
@@ -61,7 +49,7 @@ const BlogList = ({ user, setUser }) => {
       </div>
       <br />
       <Toggleable buttonLabel="new blog" ref={toggleRef}>
-        <AddBlogForm handleAddBlog={handleAddBlog} />
+        <AddBlogForm />
       </Toggleable>
       <div>
         {blogs.map((blog) => (
