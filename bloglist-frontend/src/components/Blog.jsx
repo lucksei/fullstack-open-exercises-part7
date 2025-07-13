@@ -1,10 +1,25 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeBlog, upvoteBlog, downvoteBlog } from '../reducers/blogsReducer';
 
-const Blog = ({ blog, handleEditBlog, handleDeleteBlog, showDeleteButton }) => {
+const Blog = ({ blog, showDeleteButton }) => {
+  const dispatch = useDispatch();
   const [extended, setExtended] = useState(true);
 
   const toggleExtended = () => {
     setExtended(!extended);
+  };
+
+  const handleUpvote = () => {
+    dispatch(upvoteBlog(blog));
+  };
+
+  const handleDownvote = () => {
+    dispatch(downvoteBlog(blog));
+  };
+
+  const handleDeleteBlog = () => {
+    dispatch(removeBlog(blog));
   };
 
   return (
@@ -20,22 +35,16 @@ const Blog = ({ blog, handleEditBlog, handleDeleteBlog, showDeleteButton }) => {
           </a>{' '}
           <div className="likes">
             likes {blog.likes}
-            <button
-              className="btn-like"
-              onClick={() => handleEditBlog({ ...blog, likes: blog.likes + 1 })}
-            >
+            <button className="btn-like" onClick={handleUpvote}>
               ▲
             </button>
-            <button
-              className="btn-dislike"
-              onClick={() => handleEditBlog({ ...blog, likes: blog.likes - 1 })}
-            >
+            <button className="btn-dislike" onClick={handleDownvote}>
               ▼
             </button>
           </div>
           <div>{blog.user.username}</div>
           {showDeleteButton ? (
-            <button type="button" onClick={() => handleDeleteBlog(blog)}>
+            <button type="button" onClick={handleDeleteBlog}>
               delete
             </button>
           ) : null}
