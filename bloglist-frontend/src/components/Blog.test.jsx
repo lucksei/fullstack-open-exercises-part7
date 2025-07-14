@@ -1,7 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import Blog from './Blog';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+
+import Blog from './Blog';
+import store from '../utils/storeConfig';
 
 describe('<Blog /> inside container', () => {
   let container;
@@ -14,13 +17,17 @@ describe('<Blog /> inside container', () => {
       url: 'http://localhost:1234/',
       user: 'asdf',
     };
-    container = render(<Blog blog={blog} />).container;
+    container = render(
+      <Provider store={store}>
+        <Blog blog={blog} />
+      </Provider>,
+    ).container;
   });
 
   test('<Blog /> renders its title and author without showing the url by default', () => {
     const blogElement = container.querySelector('.blog');
     expect(blogElement).toHaveTextContent(
-      'Component testing is done with react-testing-library Testman'
+      'Component testing is done with react-testing-library Testman',
     );
 
     const urlElement = blogElement.querySelector('.url');
@@ -49,8 +56,11 @@ describe('<Blog /> inside container', () => {
 
 describe('<Blog /> with mock handler stubs', () => {
   let container;
-  const mockHandlerEdit = vi.fn();
-  const mockHandlerDelete = vi.fn();
+  // NOTE: This test broke because im not passign the functions as props anymore with redux
+  // const mockHandlerEdit = vi.fn();
+  // const mockHandlerDelete = vi.fn();
+  const dispatch = vi.fn();
+  const spy = vi.spyOn(store, 'dispatch');
 
   beforeEach(() => {
     const blog = {
@@ -61,11 +71,9 @@ describe('<Blog /> with mock handler stubs', () => {
       user: 'asdf',
     };
     container = render(
-      <Blog
-        blog={blog}
-        handleEditBlog={mockHandlerEdit}
-        handleDeleteBlog={mockHandlerDelete}
-      />
+      <Provider store={store}>
+        <Blog blog={blog} />
+      </Provider>,
     ).container;
   });
 
@@ -74,10 +82,21 @@ describe('<Blog /> with mock handler stubs', () => {
     const user = userEvent.setup();
 
     const likeButton = blogElement.querySelector('.btn-like');
+    console.log(likeButton);
 
     await user.click(likeButton);
     await user.click(likeButton);
 
-    expect(mockHandlerEdit.mock.calls).toHaveLength(2);
+    spy.mock.calls.forEach(([action]) => {
+      dispatch(action);
+    });
+
+    dispatch.mock.calls.forEach(([action]) => {
+      console.log(action);
+    });
+
+    // expect(dispatch).toHaveBeenCalledTimes(2);
+
+    const dispatchCalls = expect(spy.mock.calls).toHaveLength(2);
   });
 });
