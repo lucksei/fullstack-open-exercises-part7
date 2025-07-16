@@ -1,19 +1,24 @@
 import { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Blog from './Blog';
 import AddBlogForm from './AddBlogForm';
 import Toggleable from './Toggleable';
 
-const BlogList = ({ user, setUser }) => {
-  const blogs = useSelector((state) => state.blogs);
+import { logoutUser } from '../reducers/userReducer';
+
+const BlogList = () => {
   const toggleRef = useRef();
+
+  const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const handleLogout = async (event) => {
     event.preventDefault();
-    window.localStorage.removeItem('loggedUser');
-    setUser(null);
+
+    dispatch(logoutUser());
   };
 
   return (
@@ -39,11 +44,6 @@ const BlogList = ({ user, setUser }) => {
       </div>
     </>
   );
-};
-
-BlogList.propTypes = {
-  user: PropTypes.object.isRequired,
-  setUser: PropTypes.func.isRequired,
 };
 
 export default BlogList;

@@ -1,23 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
-
 import { Provider } from 'react-redux';
-import store from '../utils/storeConfig';
 
+import loginService from '../services/login';
+import blogService from '../services/blogs';
+import store from '../utils/storeConfig';
 import AddBlogForm from './AddBlogForm';
 
 describe('<AddBlogForm />', () => {
-  test('create new blog with the right details', async () => {
-    const mockAddBlogHandler = vi.fn();
-    const mockAlertHandler = vi.fn();
-
+  test.only('create new blog with the right details', async () => {
     const container = render(
       <Provider store={store}>
-        <AddBlogForm
-          handleAddBlog={mockAddBlogHandler}
-          handleAlert={mockAlertHandler}
-        />
+        <AddBlogForm />
       </Provider>,
     ).container;
 
@@ -37,11 +32,9 @@ describe('<AddBlogForm />', () => {
     await user.click(submitButtonElement);
 
     await waitFor(() => {
-      expect(mockAddBlogHandler).toBeCalledWith({
-        title: 'title test',
-        author: 'author test',
-        url: 'http://localhost:42069/test',
-      });
+      const blogs = store.getState().blogs;
+      console.log(store.getState());
+      expect(blogs).toHaveLength(1);
     });
   });
 });

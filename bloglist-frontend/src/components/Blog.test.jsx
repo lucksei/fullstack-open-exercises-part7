@@ -59,7 +59,6 @@ describe('<Blog /> with mock handler stubs', () => {
   // NOTE: This test broke because im not passign the functions as props anymore with redux
   // const mockHandlerEdit = vi.fn();
   // const mockHandlerDelete = vi.fn();
-  const dispatch = vi.fn();
   const spy = vi.spyOn(store, 'dispatch');
 
   beforeEach(() => {
@@ -86,16 +85,6 @@ describe('<Blog /> with mock handler stubs', () => {
 
     await user.click(likeButton);
     await user.click(likeButton);
-
-    spy.mock.calls.forEach(([action]) => {
-      dispatch(action);
-    });
-
-    dispatch.mock.calls.forEach(([action]) => {
-      console.log(action);
-    });
-
-    // expect(dispatch).toHaveBeenCalledTimes(2);
 
     const dispatchCalls = expect(spy.mock.calls).toHaveLength(2);
   });

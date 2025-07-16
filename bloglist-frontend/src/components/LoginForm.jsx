@@ -1,28 +1,23 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setNotification } from '../reducers/notificationReducer';
 import loginService from '../services/login';
 
-const LoginForm = ({ handleSetUser }) => {
+import { loginUser } from '../reducers/userReducer';
+
+const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user);
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    try {
-      const user = await loginService.login({ username, password });
-      window.localStorage.setItem('loggedUser', JSON.stringify(user));
-
-      handleSetUser(user);
-
-      setUsername('');
-      setPassword('');
-    } catch (exception) {
-      dispatch(setNotification('error', 'Wrong username or password', 3));
-    }
+    dispatch(loginUser(username, password));
+    setUsername('');
+    setPassword('');
   };
 
   return (
