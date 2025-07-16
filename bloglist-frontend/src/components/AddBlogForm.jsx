@@ -13,18 +13,12 @@ const AddBlogForum = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      const newBlog = {
-        title: title,
-        author: author,
-        url: url,
-      };
-      dispatch(createBlog(newBlog));
-      dispatch(setNotification('success', `A new blog! "${newBlog.title}"`, 3));
-    } catch (exception) {
-      dispatch(setNotification('error', 'Could not create new blog entry', 3));
-    }
+    const newBlog = {
+      title: title,
+      author: author,
+      url: url,
+    };
+    dispatch(createBlog(newBlog));
   };
 
   return (

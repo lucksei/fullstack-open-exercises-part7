@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
-import loginService from "../services/login"
 import { setNotification } from "./notificationReducer"
+import loginService from "../services/login"
+import blogsService from "../services/blogs"
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -18,10 +20,12 @@ const userSlice = createSlice({
 export const { setUser, deleteUser } = userSlice.actions
 
 export const initializeUser = () => {
+  // TODO add token to the blogs service
   return (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
+      blogsService.setToken(user.token)
       dispatch(setUser(user))
     }
   }
@@ -32,6 +36,7 @@ export const loginUser = (username, password) => {
     console.log(username, password)
     try {
       const user = await loginService.login({ username, password })
+      blogsService.setToken(user.token)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       dispatch(setUser(user))
     } catch (error) {
