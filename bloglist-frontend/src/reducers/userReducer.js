@@ -20,7 +20,6 @@ const userSlice = createSlice({
 export const { setUser, deleteUser } = userSlice.actions
 
 export const initializeUser = () => {
-  // TODO add token to the blogs service
   return (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {

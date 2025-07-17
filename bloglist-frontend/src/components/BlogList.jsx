@@ -23,6 +23,7 @@ const BlogList = () => {
 
   return (
     <>
+      <h2>blogs</h2>
       <div>
         <span>{user.username} logged in</span>
         <button onClick={handleLogout}>logout</button>
