@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   BrowserRouter,
@@ -8,8 +8,9 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import BlogList from './components/BlogList';
-import LoginForm from './components/LoginForm';
+import LoginForm from './views/LoginForm';
+import Blogs from './views/Blogs';
+import Users from './views/Users';
 import Notification from './components/Notification';
 
 import './app.css';
@@ -18,11 +19,15 @@ import { initializeUser } from './reducers/userReducer';
 
 const AuthRequired = ({ user }) => {
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!user) {
-      console.log('not logged in');
-      navigate('/login');
-    }
+    const checkUser = async () => {
+      if (!user) {
+        console.log('not logged in');
+        await navigate('/login');
+      }
+    };
+    checkUser();
   }, [user, navigate]);
 
   return user ? <Outlet /> : null;
@@ -39,14 +44,17 @@ const RedirectBlogs = () => {
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(initializeBlogs());
+    dispatch(initializeUser());
+    setLoading(false);
   }, []);
 
-  useEffect(() => {
-    dispatch(initializeUser());
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -55,7 +63,8 @@ const App = () => {
         <Route path="/" element={<RedirectBlogs />} />
         <Route path="/login" element={<LoginForm />} />
         <Route element={<AuthRequired user={user} />}>
-          <Route path="/blogs" element={<BlogList />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/users" element={<Users />} />
         </Route>
       </Routes>
     </BrowserRouter>

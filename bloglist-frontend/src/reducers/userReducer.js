@@ -26,18 +26,18 @@ export const initializeUser = () => {
       const user = JSON.parse(loggedUserJSON)
       blogsService.setToken(user.token)
       dispatch(setUser(user))
+      console.log("user logged in")
     }
   }
 }
 
-export const loginUser = (username, password, navigate) => {
+export const loginUser = (username, password) => {
   return async (dispatch) => {
     try {
       const user = await loginService.login({ username, password })
       blogsService.setToken(user.token)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       dispatch(setUser(user))
-      navigate('/')
     } catch (error) {
       const message =
         error.status === 401

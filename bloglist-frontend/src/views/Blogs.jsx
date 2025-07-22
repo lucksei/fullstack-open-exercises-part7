@@ -2,13 +2,13 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Blog from './Blog';
-import AddBlogForm from './AddBlogForm';
-import Toggleable from './Toggleable';
+import Blog from '../components/Blog';
+import AddBlogForm from '../components/AddBlogForm';
+import Toggleable from '../components/Toggleable';
 
 import { logoutUser } from '../reducers/userReducer';
 
-const BlogList = () => {
+const Blogs = () => {
   const toggleRef = useRef();
 
   const blogs = useSelector((state) => state.blogs);
@@ -47,4 +47,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default Blogs;

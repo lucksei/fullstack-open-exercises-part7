@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../reducers/userReducer';
 
 const LoginForm = () => {
+  const user = useSelector((state) => state.user);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,10 +16,16 @@ const LoginForm = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    dispatch(loginUser(username, password, navigate));
+    dispatch(loginUser(username, password));
     setUsername('');
     setPassword('');
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  });
 
   return (
     <>
