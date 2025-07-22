@@ -20,6 +20,7 @@ const AuthRequired = ({ user }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!user) {
+      console.log('not logged in');
       navigate('/login');
     }
   }, [user, navigate]);

@@ -30,14 +30,14 @@ export const initializeUser = () => {
   }
 }
 
-export const loginUser = (username, password) => {
+export const loginUser = (username, password, navigate) => {
   return async (dispatch) => {
-    console.log(username, password)
     try {
       const user = await loginService.login({ username, password })
       blogsService.setToken(user.token)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       dispatch(setUser(user))
+      navigate('/')
     } catch (error) {
       const message =
         error.status === 401

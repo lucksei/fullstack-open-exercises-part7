@@ -15,7 +15,7 @@ const LoginForm = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    dispatch(loginUser(username, password));
+    dispatch(loginUser(username, password, navigate));
     setUsername('');
     setPassword('');
   };
