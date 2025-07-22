@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../reducers/userReducer';
 
@@ -8,6 +9,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();

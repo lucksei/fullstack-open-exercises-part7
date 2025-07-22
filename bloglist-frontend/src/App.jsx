@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  Outlet,
+} from 'react-router-dom';
 
 import BlogList from './components/BlogList';
 import LoginForm from './components/LoginForm';
@@ -17,6 +23,16 @@ const AuthRequired = ({ user }) => {
       navigate('/login');
     }
   }, [user, navigate]);
+
+  return user ? <Outlet /> : null;
+};
+
+const RedirectBlogs = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/blogs');
+  }, [navigate]);
+  return null;
 };
 
 const App = () => {
@@ -35,8 +51,9 @@ const App = () => {
     <BrowserRouter>
       <Notification />
       <Routes>
+        <Route path="/" element={<RedirectBlogs />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="" element={<AuthRequired user={user} />}>
+        <Route element={<AuthRequired user={user} />}>
           <Route path="/blogs" element={<BlogList />} />
         </Route>
       </Routes>
