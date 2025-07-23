@@ -10,6 +10,7 @@ import {
 
 import LoginForm from './views/LoginForm';
 import Blogs from './views/Blogs';
+import Blog from './views/Blog';
 import Users from './views/Users';
 import User from './views/User';
 import Notification from './components/Notification';
@@ -87,6 +88,7 @@ const App = () => {
             </>
           }>
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<Blog />} />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<User />} />
         </Route>
