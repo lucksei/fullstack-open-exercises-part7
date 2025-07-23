@@ -15,19 +15,8 @@ const Blogs = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
-
-    dispatch(logoutUser());
-  };
-
   return (
     <>
-      <h2>blogs</h2>
-      <div>
-        <span>{user.username} logged in</span>
-        <button onClick={handleLogout}>logout</button>
-      </div>
       <br />
       <Toggleable buttonLabel="new blog" ref={toggleRef}>
         <AddBlogForm />

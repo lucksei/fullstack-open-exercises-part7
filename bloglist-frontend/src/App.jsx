@@ -11,11 +11,12 @@ import {
 import LoginForm from './views/LoginForm';
 import Blogs from './views/Blogs';
 import Users from './views/Users';
+import User from './views/User';
 import Notification from './components/Notification';
 
 import './app.css';
 import { initializeBlogs } from './reducers/blogsReducer';
-import { initializeUser } from './reducers/userReducer';
+import { initializeUser, logoutUser } from './reducers/userReducer';
 import { initializeUsers } from './reducers/usersReducer';
 
 const AuthRequired = ({ user }) => {
@@ -54,6 +55,12 @@ const App = () => {
     setLoading(false);
   }, []);
 
+  const handleLogout = async (event) => {
+    event.preventDefault();
+
+    dispatch(logoutUser());
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -64,9 +71,24 @@ const App = () => {
       <Routes>
         <Route path="/" element={<RedirectBlogs />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route element={<AuthRequired user={user} />}>
+        <Route
+          element={
+            <>
+              {user ? (
+                <>
+                  <h2>blogs</h2>
+                  <div>
+                    <span>{user.username} logged in</span>
+                    <button onClick={handleLogout}>logout</button>
+                  </div>
+                </>
+              ) : null}
+              <AuthRequired user={user} />
+            </>
+          }>
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<User />} />
         </Route>
       </Routes>
     </BrowserRouter>
