@@ -16,6 +16,7 @@ import Notification from './components/Notification';
 import './app.css';
 import { initializeBlogs } from './reducers/blogsReducer';
 import { initializeUser } from './reducers/userReducer';
+import { initializeUsers } from './reducers/usersReducer';
 
 const AuthRequired = ({ user }) => {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const App = () => {
   useEffect(() => {
     dispatch(initializeBlogs());
     dispatch(initializeUser());
+    dispatch(initializeUsers());
     setLoading(false);
   }, []);
 
