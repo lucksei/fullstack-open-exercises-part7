@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import LoginForm from './views/LoginForm';
+import Navigation from './views/Navigation';
 import Blogs from './views/Blogs';
 import Blog from './views/Blog';
 import Users from './views/Users';
@@ -17,7 +18,7 @@ import Notification from './components/Notification';
 
 import './app.css';
 import { initializeBlogs } from './reducers/blogsReducer';
-import { initializeUser, logoutUser } from './reducers/userReducer';
+import { initializeUser } from './reducers/userReducer';
 import { initializeUsers } from './reducers/usersReducer';
 
 const AuthRequired = ({ user }) => {
@@ -56,12 +57,6 @@ const App = () => {
     setLoading(false);
   }, []);
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
-
-    dispatch(logoutUser());
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -75,15 +70,8 @@ const App = () => {
         <Route
           element={
             <>
-              {user ? (
-                <>
-                  <h2>blogs</h2>
-                  <div>
-                    <span>{user.username} logged in</span>
-                    <button onClick={handleLogout}>logout</button>
-                  </div>
-                </>
-              ) : null}
+              <Navigation />
+              <h2>blogs</h2>
               <AuthRequired user={user} />
             </>
           }>
