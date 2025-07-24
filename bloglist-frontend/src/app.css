@@ -1,36 +1,40 @@
 @import 'tailwindcss';
 
-h1 {
+h1:not(.no-style) {
   @apply text-4xl font-semibold  text-slate-800 tracking-wide mb-4 mx-2 pb-2 border-b-2 border-gray-200;
 }
-h2 {
+h2:not(.no-style) {
   @apply text-3xl font-semibold text-slate-600 mb-4 mx-2 pb-2;
 }
 
-h3 {
+h3:not(.no-style) {
   @apply text-xl text-slate-600 mb-4;
 }
 
-label {
+p:not(.no-style) {
+  @apply text-slate-800;
+}
+
+label:not(.no-style) {
   @apply block text-slate-700 text-sm mt-2 after:content-[":"];
 }
-input {
+input:not(.no-style) {
   @apply bg-white focus:border-3 focus:outline-none focus:border-blue-600 border border-gray-300 rounded-md py-2 px-4 block w-3xs appearance-none leading-normal;
 }
 
-button {
+button:not(.no-style) {
   @apply bg-blue-500 hover:bg-blue-700 text-white tracking-wide font-bold pt-0.5 pb-1 px-6 rounded w-max cursor-pointer;
 }
 
-ul {
+ul:not(.no-style) {
   @apply relative flex flex-col shadow-sm my-3 border border-slate-200;
 }
 
-li {
+li:not(.no-style) {
   @apply text-slate-800 visited:text-purple-500 flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 active:bg-slate-100;
 }
 
-a {
+a:not(.no-style) {
   @apply cursor-pointer underline text-slate-800 visited:text-purple-900;
 }
 

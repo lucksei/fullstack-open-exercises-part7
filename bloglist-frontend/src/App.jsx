@@ -11,7 +11,7 @@ import {
 import './app.css';
 
 import LoginForm from './views/LoginForm';
-import Navigation from './views/Navigation';
+import Navigation from './components/Navigation';
 import Blogs from './views/Blogs';
 import Blog from './views/Blog';
 import Users from './views/Users';
@@ -65,24 +65,25 @@ const App = () => {
   return (
     <BrowserRouter>
       <Notification />
-      <Routes>
-        <Route path="/" element={<RedirectBlogs />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route
-          element={
-            <>
-              <Navigation />
-              <br className="mt-8" />
-              <h1>Blogs</h1>
-              <AuthRequired user={user} />
-            </>
-          }>
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<Blog />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<User />} />
-        </Route>
-      </Routes>
+      <div className="mx-2">
+        <Routes>
+          <Route path="/" element={<RedirectBlogs />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route
+            element={
+              <>
+                <Navigation />
+                <h1 className="mt-14">Blogs</h1>
+                <AuthRequired user={user} />
+              </>
+            }>
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<Blog />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<User />} />
+          </Route>
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };

@@ -26,7 +26,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 z-10 flex flex-row items-center justify-start gap-4 bg-slate-300 p-2 w-full shadow-lg">
+      <nav className="fixed top-0 left-0 z-10 flex flex-row items-center justify-start gap-4 bg-slate-300 p-2 w-full shadow-lg">
         <Link to="/blogs" style={{ textDecoration: 'none' }}>
           <span className="no-underline hover:underline underline-offset-7 text-slate-900 font-semibold tracking-widest">
             blogs
@@ -44,14 +44,13 @@ const Navigation = () => {
             logged in
           </span>
 
-          <div
-            role="button"
-            className="bg-slate-800 hover:bg-slate-600 text-white tracking-wide text-sm pt-0.5 pb-1 px-3 rounded w-max cursor-pointer"
+          <button
+            className="no-style bg-slate-800 hover:bg-slate-600 text-white tracking-wide text-sm pt-0.5 pb-1 px-3 rounded w-max cursor-pointer"
             onClick={handleLogout}>
             Logout
-          </div>
+          </button>
         </div>
-      </div>
+      </nav>
     </>
   );
 };
