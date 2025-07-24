@@ -1,13 +1,14 @@
 @import 'tailwindcss';
 
-h2 {
-  @apply text-3xl mb-4;
+h1 {
+  @apply text-4xl font-semibold tracking-wide mb-4 mx-2 pb-2 border-b-2 border-gray-200;
 }
-.blog {
-  border: solid 1px;
-  border-radius: 5px;
-  padding: 5px;
-  margin-bottom: 3px;
+h2 {
+  @apply text-3xl  font-semibold mb-4 mx-2 pb-2;
+}
+
+h3 {
+  @apply text-xl mb-4;
 }
 
 input {
@@ -17,6 +18,19 @@ input {
 button {
   @apply bg-blue-500 hover:bg-blue-700 text-white tracking-wide font-bold py-1 px-6 rounded w-max cursor-pointer;
 }
+
+* *::before *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* .blog {
+  border: solid 1px;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 3px;
+}
+
 .notification.success {
   background-color: lightgreen;
   color: darkgreen;
@@ -33,4 +47,4 @@ button {
   border-radius: 2px;
   padding: 5px;
   margin: 0 0 15px 0;
-}
+} */

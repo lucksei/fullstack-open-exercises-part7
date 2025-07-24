@@ -72,7 +72,7 @@ const App = () => {
           element={
             <>
               <Navigation />
-              <h2>blogs</h2>
+              <h1>Blogs</h1>
               <AuthRequired user={user} />
             </>
           }>

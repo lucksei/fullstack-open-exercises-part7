@@ -21,44 +21,49 @@ const AddBlogForum = () => {
   };
 
   return (
-    <>
-      <h3>create new</h3>
-      <form onSubmit={handleSubmit} className="blog-form">
+    <div className="">
+      <h3>Create New</h3>
+      <form onSubmit={handleSubmit}>
         <div>
-          title:
+          <label for="title">Title</label>
           <input
+            id="title"
             className="input-title"
             type="text"
             value={title}
             name="Title"
+            placeholder="Title"
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
         <div>
-          author:
+          <label for="author">Author</label>
           <input
+            id="author"
             className="input-author"
             type="text"
             value={author}
             name="Author"
+            placeholder="Author"
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
         <div>
-          url:
+          <label for="url">Url</label>
           <input
             className="input-url"
             type="text"
             value={url}
             name="Url"
+            placeholder="Url"
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <button className="btn-submit" type="submit">
-          create
+        <button className="mt-2" type="submit">
+          Create
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -12,8 +12,7 @@ const Blogs = () => {
 
   return (
     <>
-      <br />
-      <Toggleable buttonLabel="new blog" ref={toggleRef}>
+      <Toggleable buttonLabel="New Blog" ref={toggleRef}>
         <AddBlogForm />
       </Toggleable>
       <div>
