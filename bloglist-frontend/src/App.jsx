@@ -72,6 +72,7 @@ const App = () => {
           element={
             <>
               <Navigation />
+              <br className="mt-8" />
               <h1>Blogs</h1>
               <AuthRequired user={user} />
             </>

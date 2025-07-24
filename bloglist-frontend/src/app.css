@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 
 h1 {
-  @apply text-4xl font-semibold tracking-wide mb-4 mx-2 pb-2 border-b-2 border-gray-200;
+  @apply text-4xl font-semibold  text-slate-800 tracking-wide mb-4 mx-2 pb-2 border-b-2 border-gray-200;
 }
 h2 {
-  @apply text-3xl  font-semibold mb-4 mx-2 pb-2;
+  @apply text-3xl font-semibold text-slate-600 mb-4 mx-2 pb-2;
 }
 
 h3 {
-  @apply text-xl mb-4;
+  @apply text-xl text-slate-600 mb-4;
 }
 
 label {
@@ -19,7 +19,7 @@ input {
 }
 
 button {
-  @apply bg-blue-500 hover:bg-blue-700 text-white tracking-wide font-bold py-1 px-6 rounded w-max cursor-pointer;
+  @apply bg-blue-500 hover:bg-blue-700 text-white tracking-wide font-bold pt-0.5 pb-1 px-6 rounded w-max cursor-pointer;
 }
 
 ul {
@@ -27,7 +27,11 @@ ul {
 }
 
 li {
-  @apply text-slate-800 flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 active:bg-slate-100;
+  @apply text-slate-800 visited:text-purple-500 flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 active:bg-slate-100;
+}
+
+a {
+  @apply cursor-pointer underline text-slate-800 visited:text-purple-900;
 }
 
 * *::before *::after {
