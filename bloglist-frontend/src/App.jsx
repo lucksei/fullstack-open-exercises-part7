@@ -8,6 +8,8 @@ import {
   Outlet,
 } from 'react-router-dom';
 
+import './app.css';
+
 import LoginForm from './views/LoginForm';
 import Navigation from './views/Navigation';
 import Blogs from './views/Blogs';
@@ -16,7 +18,6 @@ import Users from './views/Users';
 import User from './views/User';
 import Notification from './components/Notification';
 
-import './app.css';
 import { initializeBlogs } from './reducers/blogsReducer';
 import { initializeUser } from './reducers/userReducer';
 import { initializeUsers } from './reducers/usersReducer';

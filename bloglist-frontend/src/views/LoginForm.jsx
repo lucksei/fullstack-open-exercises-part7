@@ -28,30 +28,36 @@ const LoginForm = () => {
   });
 
   return (
-    <>
-      <h2>log in to application</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-          password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
-      </form>
-    </>
+    <div className="flex justify-center pt-10">
+      <div className="flex flex-col border border-gray-300 rounded-md m-2 py-4 ps-4 pe-12 shadow-lg w-max">
+        <h2>Log in to Application</h2>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <div>
+            <label for="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              name="Username"
+              onChange={({ target }) => setUsername(target.value)}
+              placeholder="username"
+            />
+          </div>
+          <div>
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              name="Password"
+              placeholder="password"
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
   );
 };
 
