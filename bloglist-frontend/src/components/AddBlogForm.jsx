@@ -49,13 +49,13 @@ const AddBlogForum = () => {
           />
         </div>
         <div>
-          <label for="url">Url</label>
+          <label for="url">URL</label>
           <input
             className="input-url"
             type="text"
             value={url}
             name="Url"
-            placeholder="Url"
+            placeholder="URL"
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>

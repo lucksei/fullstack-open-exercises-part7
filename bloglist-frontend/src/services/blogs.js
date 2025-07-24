@@ -29,6 +29,9 @@ const update = async (blog) => {
   // Modify the blog so that the user field has only its id as a string
   const blogRequest = { ...blog, user: blog.user.id }
 
+  // Modify the blog so that the comments field has only their ids as strings
+  blogRequest.comments = blog.comments.map(comment => comment.id)
+
   await axios.patch(`${baseUrl}/${blogRequest.id}`, blogRequest, config)
 }
 
