@@ -50,8 +50,7 @@ blogsRouter.delete('/:blogId', async (request, response, next) => {
     await Blog.findByIdAndDelete(blogId)
 
     // Delete user ownership
-    const user = User.findById(blogToDelete.user.id)
-    console.log(user)
+    const user = await User.findById(blogToDelete.user._id)
     user.blogs = user.blogs.filter((blog) => blog.id !== blogId)
     await user.save()
 
