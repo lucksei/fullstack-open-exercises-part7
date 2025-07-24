@@ -84,7 +84,6 @@ blogsRouter.patch('/:blogId', async (request, response, next) => {
   }
 })
 
-// Comments. TODO: Check if its better to move it to its own router
 blogsRouter.post("/:blogId/comments", async (request, response, next) => {
   const { blogId } = request.params
   const blog = await Blog.findById(blogId)
@@ -95,14 +94,6 @@ blogsRouter.post("/:blogId/comments", async (request, response, next) => {
     blog: blog.id,
   })
 
-  // const blog = new Blog({
-  //   title: request.body.title,
-  //   author: request.body.author,
-  //   url: request.body.url,
-  //   likes: request.body.likes,
-  //   user: request.user._id,
-  // })
-
   try {
     const savedComment = await comment.save()
     blog.comments = blog.comments.concat(savedComment._id)
@@ -112,14 +103,5 @@ blogsRouter.post("/:blogId/comments", async (request, response, next) => {
   } catch (exeption) {
     next(exeption)
   }
-
-  // try {
-  //   const savedBlog = await blog.save()
-  //   request.user.blogs = request.user.blogs.concat(savedBlog._id)
-  //   await request.user.save()
-  //   response.status(201).json(await savedBlog.populate('user'))
-  // } catch (exeption) {
-  //   next(exeption)
-  // }
 })
 module.exports = blogsRouter
