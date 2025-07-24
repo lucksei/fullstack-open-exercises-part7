@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import _ from 'lodash';
 
 const User = () => {
@@ -11,10 +11,16 @@ const User = () => {
   return (
     <>
       <h2>{user.username}</h2>
-      <h3>added blogs</h3>
+      <h3>Added blogs</h3>
       <ul>
         {user.blogs.map((blog) => (
-          <li key={blog.id}>{blog.title}</li>
+          <li key={blog.id}>
+            <Link to={`/blogs/${blog.id}`}>
+              <span className="font-semibold">{blog.title}</span>
+            </Link>
+            <span className="mx-2">{'-'}</span>
+            <span> {blog.author}</span>
+          </li>
         ))}
       </ul>
     </>

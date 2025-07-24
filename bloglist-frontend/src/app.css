@@ -42,6 +42,22 @@ a:not(.no-style) {
   @apply cursor-pointer underline text-slate-800 visited:text-purple-900;
 }
 
+table:not(.no-style) {
+  @apply shadow-sm my-3 border rounded border-slate-200;
+}
+
+thead tr:not(.no-style) {
+  @apply font-semibold text-slate-800 border-b rounded border-slate-200;
+}
+
+th:not(.no-style) {
+  @apply text-left p-3;
+}
+
+td:not(.no-style) {
+  @apply px-3 py-1;
+}
+
 * *::before *::after {
   margin: 0;
   padding: 0;
