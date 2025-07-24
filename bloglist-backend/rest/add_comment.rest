@@ -1,0 +1,9 @@
+@host = http://localhost:3001
+@blog_id = 688189cc2033dc08c5116276
+###
+POST {{host}}/api/blogs/{{blog_id}}/comments
+Content-Type: application/json
+
+{
+    "content": "luca was here"
+}

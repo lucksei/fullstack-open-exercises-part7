@@ -1,11 +1,11 @@
 const blogsRouter = require('express').Router()
-const jwt = require('jsonwebtoken')
 const Blog = require('./../models/blog')
 const User = require('./../models/user')
-const logger = require('./../utils/logger')
+const Comment = require('./../models/comment')
+const { request, response } = require('../app')
 
 blogsRouter.get('/', async (request, response, next) => {
-  const blogs = await Blog.find({}).populate('user')
+  const blogs = await Blog.find({}).populate('user').populate('comments')
   response.json(blogs)
 })
 
@@ -46,7 +46,20 @@ blogsRouter.delete('/:blogId', async (request, response, next) => {
       return response.status(401).json({ error: "cannot delete another user's note" })
     }
 
+    // Delete blog
     await Blog.findByIdAndDelete(blogId)
+
+    // Delete user ownership
+    const user = User.findById(blogToDelete.user.id)
+    console.log(user)
+    user.blogs = user.blogs.filter((blog) => blog.id !== blogId)
+    await user.save()
+
+    // Delete comments
+    blogToDelete.comments.forEach((comment) => {
+      Comment.findByIdAndDelete(comment.id)
+    })
+
     return response.status(204).end()
   } catch (exeption) {
     next(exeption)
@@ -69,5 +82,44 @@ blogsRouter.patch('/:blogId', async (request, response, next) => {
   } catch (exeption) {
     next(exeption)
   }
+})
+
+// Comments. TODO: Check if its better to move it to its own router
+blogsRouter.post("/:blogId/comments", async (request, response, next) => {
+  const { blogId } = request.params
+  const blog = await Blog.findById(blogId)
+  console.log(blog)
+
+  const comment = new Comment({
+    content: request.body.content,
+    blog: blog.id,
+  })
+
+  // const blog = new Blog({
+  //   title: request.body.title,
+  //   author: request.body.author,
+  //   url: request.body.url,
+  //   likes: request.body.likes,
+  //   user: request.user._id,
+  // })
+
+  try {
+    const savedComment = await comment.save()
+    blog.comments = blog.comments.concat(savedComment._id)
+    await blog.save()
+    return response.status(201).json(savedComment)
+
+  } catch (exeption) {
+    next(exeption)
+  }
+
+  // try {
+  //   const savedBlog = await blog.save()
+  //   request.user.blogs = request.user.blogs.concat(savedBlog._id)
+  //   await request.user.save()
+  //   response.status(201).json(await savedBlog.populate('user'))
+  // } catch (exeption) {
+  //   next(exeption)
+  // }
 })
 module.exports = blogsRouter
