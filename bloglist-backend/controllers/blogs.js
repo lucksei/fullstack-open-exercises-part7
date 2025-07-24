@@ -46,8 +46,6 @@ blogsRouter.delete('/:blogId', async (request, response, next) => {
       return response.status(401).json({ error: "cannot delete another user's note" })
     }
 
-    // Delete blog
-    await Blog.findByIdAndDelete(blogId)
 
     // Delete user ownership
     const user = await User.findById(blogToDelete.user._id)
@@ -55,9 +53,10 @@ blogsRouter.delete('/:blogId', async (request, response, next) => {
     await user.save()
 
     // Delete comments
-    blogToDelete.comments.forEach((comment) => {
-      Comment.findByIdAndDelete(comment.id)
-    })
+    await Comment.deleteMany({ _id: { $in: blogToDelete.comments } })
+
+    // Delete blog
+    await Blog.findByIdAndDelete(blogId)
 
     return response.status(204).end()
   } catch (exeption) {

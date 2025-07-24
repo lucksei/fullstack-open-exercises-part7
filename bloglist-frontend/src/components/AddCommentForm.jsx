@@ -14,6 +14,7 @@ const AddCommentForm = ({ blog }) => {
       content: content,
     };
     dispatch(createComment(blog, newComment));
+    setContent('');
   };
   return (
     <form>
