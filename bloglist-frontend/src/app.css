@@ -11,6 +11,10 @@ h3:not(.no-style) {
   @apply text-xl text-slate-600 mb-4;
 }
 
+h4:not(.no-style) {
+  @apply text-lg text-slate-600 mb-4;
+}
+
 p:not(.no-style) {
   @apply text-slate-800;
 }
@@ -23,7 +27,7 @@ input:not(.no-style) {
 }
 
 button:not(.no-style) {
-  @apply bg-blue-500 hover:bg-blue-700 text-white tracking-wide font-bold pt-0.5 pb-1 px-6 rounded w-max cursor-pointer;
+  @apply bg-blue-500 hover:bg-blue-700 text-white text-nowrap tracking-wide font-bold pt-0.5 pb-1 px-6 rounded w-max cursor-pointer;
 }
 
 ul:not(.no-style) {

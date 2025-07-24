@@ -42,7 +42,7 @@ const Blog = () => {
             type="button"
             onClick={handleDeleteBlog}
             className="no-style bg-red-500 hover:bg-red-700 text-white tracking-wide font-bold pt-0.5 pb-1 px-6 rounded w-max cursor-pointer">
-            delete
+            Delete
           </button>
         ) : null}
       </div>
@@ -71,14 +71,14 @@ const Blog = () => {
         <div>
           Added by <span className="font-semibold">{blog.user.username}</span>
         </div>
+        <h4 className="border-b-2 border-gray-200">Comments</h4>
+        <AddCommentForm blog={blog} />
+        <ul>
+          {blog.comments.map((comment) => (
+            <li key={comment.id}>{comment.content}</li>
+          ))}
+        </ul>
       </div>
-      <h3>Comments</h3>
-      <AddCommentForm blog={blog} />
-      <ul>
-        {blog.comments.map((comment) => (
-          <li key={comment.id}>{comment.content}</li>
-        ))}
-      </ul>
     </div>
   );
 };
