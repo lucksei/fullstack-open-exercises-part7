@@ -2,13 +2,14 @@ import _ from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Navigate } from 'react-router-dom';
 import { upvoteBlog, downvoteBlog, removeBlog } from '../reducers/blogsReducer';
+import AddCommentForm from '../components/AddCommentForm';
 
 const Blog = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const blogs = useSelector((state) => state.blogs);
-  const { id } = useParams();
   const blog = _.find(blogs, (b) => b.id === id);
 
   const handleUpvote = () => {
@@ -50,6 +51,13 @@ const Blog = () => {
           delete
         </button>
       ) : null}
+      <h3>Comments</h3>
+      <AddCommentForm blog={blog} />
+      <ul>
+        {blog.comments.map((comment) => (
+          <li key={comment.id}>{comment.content}</li>
+        ))}
+      </ul>
     </>
   );
 };
